@@ -3,6 +3,7 @@ package fr.communaywen.core.commands.fun;
 import fr.communaywen.core.AywenCraftPlugin;
 import fr.communaywen.core.credit.Credit;
 import fr.communaywen.core.credit.Feature;
+import fr.communaywen.core.stat.Stats;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -33,6 +34,10 @@ public final class ProutCommand {
     @CommandPermission("ayw.command.prout")
     @Cooldown(value = 5, unit = TimeUnit.MINUTES)
     public void onCommand(Player player) {
+
+        //Add to the stats
+        AywenCraftPlugin.getInstance().getManagers().getStatsManager().add(player, Stats.StatList.PROUT, 1);
+
         player.sendMessage("§2Beuuurk, ça pue !");
 
         // Make the player jump

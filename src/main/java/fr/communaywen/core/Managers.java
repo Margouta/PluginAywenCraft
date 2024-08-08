@@ -9,6 +9,7 @@ import fr.communaywen.core.economy.EconomyManager;
 import fr.communaywen.core.friends.FriendsManager;
 import fr.communaywen.core.levels.LevelsDataManager;
 import fr.communaywen.core.levels.LevelsManager;
+import fr.communaywen.core.stat.StatManager;
 import fr.communaywen.core.scoreboard.ScoreboardManager;
 import fr.communaywen.core.staff.report.ReportManager;
 import fr.communaywen.core.teams.Team;
@@ -40,6 +41,7 @@ public class Managers {
     private QuizManager quizManager;
     private FallingBlocksExplosionManager fbeManager;
     private LevelsManager levelsManager;
+    private StatManager statsManager;
     private TransactionsManager transactionsManager;
     private CustomItemsManager customItemsManager;
     private ReportManager reportManager;
@@ -94,6 +96,7 @@ public class Managers {
         corpseManager = new CorpseManager();
         fbeManager = new FallingBlocksExplosionManager();
         levelsManager = new LevelsManager();
+        statsManager = new StatManager();
         transactionsManager = new TransactionsManager();
         customItemsManager = new CustomItemsManager();
         chatChannel = new PlayerChatChannel();

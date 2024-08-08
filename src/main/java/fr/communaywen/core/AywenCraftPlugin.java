@@ -42,6 +42,7 @@ import fr.communaywen.core.quests.QuestsManager;
 import fr.communaywen.core.quests.qenum.QUESTS;
 import fr.communaywen.core.staff.freeze.FreezeCommand;
 import fr.communaywen.core.staff.players.PlayersCommand;
+import fr.communaywen.core.stat.StatData;
 import fr.communaywen.core.tab.TabList;
 import fr.communaywen.core.tpa.TPACommand;
 import fr.communaywen.core.tpa.TpacceptCommand;
@@ -270,6 +271,7 @@ public final class AywenCraftPlugin extends JavaPlugin {
         }
 
         QuestsManager.initializeQuestsTable();
+        StatData.initializeStatsTable();
         ClaimConfigDataBase.loadAllClaims();
         new BandageRecipe();
     }
