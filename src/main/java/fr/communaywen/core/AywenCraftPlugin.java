@@ -7,6 +7,7 @@ import fr.communaywen.core.claim.ClaimConfigDataBase;
 import fr.communaywen.core.claim.ClaimListener;
 import fr.communaywen.core.claim.GamePlayer;
 import fr.communaywen.core.claim.RegionManager;
+import fr.communaywen.core.clockinfos.tasks.CompassClockTask;
 import fr.communaywen.core.commands.credits.CreditCommand;
 import fr.communaywen.core.commands.credits.FeatureCommand;
 import fr.communaywen.core.commands.economy.AdminShopCommand;
@@ -16,22 +17,21 @@ import fr.communaywen.core.commands.economy.PayCommands;
 import fr.communaywen.core.commands.explosion.ExplodeRandomCommand;
 import fr.communaywen.core.commands.explosion.FBoomCommand;
 import fr.communaywen.core.commands.fun.*;
-import fr.communaywen.core.commands.staff.ReportCommands;
-import fr.communaywen.core.commands.utils.*;
-import fr.communaywen.core.commands.teleport.RTPCommand;
-import fr.communaywen.core.commands.teleport.SpawnCommand;
 import fr.communaywen.core.commands.link.LinkCommand;
 import fr.communaywen.core.commands.link.ManualLinkCommand;
 import fr.communaywen.core.commands.socials.DiscordCommand;
 import fr.communaywen.core.commands.socials.GithubCommand;
+import fr.communaywen.core.commands.staff.ReportCommands;
 import fr.communaywen.core.commands.teams.TeamAdminCommand;
 import fr.communaywen.core.commands.teams.TeamCommand;
+import fr.communaywen.core.commands.teleport.RTPCommand;
+import fr.communaywen.core.commands.teleport.SpawnCommand;
+import fr.communaywen.core.commands.utils.*;
 import fr.communaywen.core.customitems.commands.ShowCraftCommand;
 import fr.communaywen.core.customitems.listeners.CIBreakBlockListener;
 import fr.communaywen.core.customitems.listeners.CIEnchantListener;
 import fr.communaywen.core.customitems.listeners.CIPrepareAnvilListener;
 import fr.communaywen.core.fallblood.BandageRecipe;
-import fr.communaywen.core.clockinfos.tasks.CompassClockTask;
 import fr.communaywen.core.friends.commands.FriendsCommand;
 import fr.communaywen.core.levels.LevelsCommand;
 import fr.communaywen.core.levels.LevelsListeners;
@@ -50,7 +50,10 @@ import fr.communaywen.core.tpa.TpdenyCommand;
 import fr.communaywen.core.trade.TradeAcceptCommand;
 import fr.communaywen.core.trade.TradeCommand;
 import fr.communaywen.core.trade.TradeListener;
-import fr.communaywen.core.utils.*;
+import fr.communaywen.core.utils.DiscordWebhook;
+import fr.communaywen.core.utils.LinkerAPI;
+import fr.communaywen.core.utils.MOTDChanger;
+import fr.communaywen.core.utils.PermissionCategory;
 import fr.communaywen.core.utils.command.InteractiveHelpMenu;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -59,6 +62,8 @@ import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -75,12 +80,9 @@ import org.jetbrains.annotations.NotNull;
 import revxrsal.commands.autocomplete.SuggestionProvider;
 import revxrsal.commands.bukkit.BukkitCommandHandler;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
 
 public final class AywenCraftPlugin extends JavaPlugin {
     public static ArrayList<Player> frozenPlayers = new ArrayList<>();
@@ -248,6 +250,7 @@ public final class AywenCraftPlugin extends JavaPlugin {
                 new ClaimListener(),
                 new FarineListener(),
                 new FallBloodListener(),
+                new RTPCommand(this),
                 new CIBreakBlockListener(managers.getCustomItemsManager()),
                 new CIEnchantListener(managers.getCustomItemsManager()),
                 new CIPrepareAnvilListener(managers.getCustomItemsManager()),
