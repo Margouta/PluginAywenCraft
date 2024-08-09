@@ -5,6 +5,7 @@ import fr.communaywen.core.credit.Credit;
 import fr.communaywen.core.credit.Feature;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
@@ -15,6 +16,7 @@ import revxrsal.commands.annotation.Command;
 import revxrsal.commands.annotation.Cooldown;
 import revxrsal.commands.annotation.Description;
 import revxrsal.commands.bukkit.annotation.CommandPermission;
+import org.bukkit.entity.Boat;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +36,18 @@ public final class ProutCommand {
     @Cooldown(value = 5, unit = TimeUnit.MINUTES)
     public void onCommand(Player player) {
         player.sendMessage("§2Beuuurk, ça pue !");
+
+        if(player.isInsideVehicle()){
+            if(player.getVehicle() instanceof Boat){
+                Boat boat = (Boat) player.getVehicle();
+                Material boatMaterial = getBoatType(boat);
+                ItemStack itemBoat = new ItemStack(boatMaterial);
+                player.getVehicle().remove();
+                player.getWorld().dropItemNaturally(player.getLocation(), itemBoat);
+
+                player.sendMessage("Votre bateau a coulé.");
+            }
+        }
 
         // Make the player jump
         final Vector currentVelocity = player.getVelocity();
@@ -77,5 +91,20 @@ public final class ProutCommand {
         player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 600, 0, false, false, true));
 
         Bukkit.getScheduler().runTaskLater(AywenCraftPlugin.getInstance(), () -> finalTeam.removeEntry(player.getName()), 600L);
+    }
+
+    private Material getBoatType(Boat boat){
+        switch(boat.getBoatType()){
+            case OAK -> {return Material.OAK_BOAT;}
+            case BIRCH -> {return Material.BIRCH_BOAT;}
+            case ACACIA -> {return Material.ACACIA_BOAT;}
+            case BAMBOO -> {return Material.BAMBOO_RAFT;}
+            case CHERRY -> {return Material.CHERRY_BOAT;}
+            case JUNGLE -> {return Material.JUNGLE_BOAT;}
+            case SPRUCE -> {return Material.SPRUCE_BOAT;}
+            case DARK_OAK -> {return Material.DARK_OAK_BOAT;}
+            case MANGROVE -> {return  Material.MANGROVE_BOAT;}
+            default -> {return Material.OAK_BOAT;}
+        }
     }
 }
